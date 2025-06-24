@@ -1,1 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Eventify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body { padding-top: 0; }
+        .admin-wrapper { display: flex; }
+        .admin-content { flex-grow: 1; padding: 20px; }
+        .admin-sidebar {
+            width: 250px;
+            background-color: #343a40;
+            min-height: 100vh;
+            padding-top: 20px !important;
+            color: white;
+        }
+        .admin-sidebar .nav-link {
+            color: #adb5bd;
+        }
+        .admin-sidebar .nav-link.active {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .admin-sidebar .nav-link:hover {
+            background-color: #495057;
+            color: white;
+        }
+        .card-header {
+            font-weight: bold;
+        }
+        .display-4 {
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-wrapper">
+    <nav class="admin-sidebar d-flex flex-column p-3 text-white">
+        <h4 class="text-center mb-4">Admin Panel</h4>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="admin-dashboard.php" class="nav-link active">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="manage-events.php" class="nav-link text-white">
+                    <i class="fas fa-calendar-plus me-2"></i> Manage Events
+                </a>
+            </li>
+            <li>
+                <a href="view-bookings.php" class="nav-link text-white">
+                    <i class="fas fa-ticket-alt me-2"></i> View Bookings
+                </a>
+            </li>
+            <li>
+                <a href="manage-users.php" class="nav-link text-white">
+                    <i class="fas fa-users me-2"></i> Manage Users
+                </a>
+            </li>
+            <li>
+                <a href="reports.php" class="nav-link text-white">
+                    <i class="fas fa-chart-line me-2"></i> Reports
+                </a>
+            </li>
+            <li>
+                <a href="messages.php" class="nav-link text-white">
+                    <i class="fas fa-envelope me-2"></i> User Messages
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="img/admin (1).png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>Admin User</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="../index.php">Sign out</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="admin-content">
+        <h1 class="mb-4">Dashboard Overview</h1>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Total Events</div>
+                    <div class="card-body">
+                        <h5 class="card-title display-4">
+                            <?php echo getTotalEvents(); ?>
+                        </h5>
+                        <p class="card-text">Currently listed events.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Total Bookings</div>
+                    <div class="card-body">
+                        <h5 class="card-title display-4">
+                            <?php echo getTotalBookings(); ?>
+                        </h5>
+                        <p class="card-text">Tickets sold across all events.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-header">Revenue</div>
+                    <div class="card-body">
+                        <h5 class="card-title display-4">XFA<?php echo getTotalRevenue(); ?></h5>
+                        <p class="card-text">Estimated total revenue.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header">Recent Bookings</div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Event Name</th>
+                            <th>User</th>
+                            <th>Tickets</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php echo getRecentBookings(); ?>
+                    </tbody>
+                </table>
+                <a href="view-bookings.php" class="btn btn-sm btn-outline-primary">View All Bookings</a>
+            </div>
+        </div>
+
+        <div class="card shadow-sm my-4">
+            <div class="card-header">Latest User Messages</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <?php echo getRecentMessages(); ?>
+                </ul>
+                <a href="messages.php" class="btn btn-sm btn-outline-secondary mt-3">View All Messages</a>
+            </div>
+        </div>
+
+        <div class="card shadow-sm my-4">
+            <div class="card-header">Recent Reports</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <?php echo getRecentReports(); ?>
+                </ul>
+                <a href="reports.php" class="btn btn-sm btn-outline-secondary mt-3">View Reports</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+<?php
+// Example PHP functions (replace with DB logic)
+function getTotalEvents() {
+    // return from database
+    return 10;
+}
+
+function getTotalBookings() {
+    return 45;
+}
+
+function getTotalRevenue() {
+    return 35000;
+}
+
+function getRecentBookings() {
+    return '<tr>
+                <td>#BKG-001</td>
+                <td>Music Fiesta</td>
+                <td>john@example.com</td>
+                <td>2</td>
+                <td>XFA5000</td>
+                <td>2025-06-21</td>
+            </tr>';
+}
+
+function getRecentMessages() {
+    return '<li class="list-group-item">"Great event!" - <strong>Patrick Foe</strong> (jane@example.com)</li>';
+}
+
+function getRecentReports() {
+    return '<li class="list-group-item">Monthly booking summary - June 2025</li>';
+}
+?>
 
