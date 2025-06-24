@@ -35,7 +35,7 @@ Admin Panel: Add/edit/delete events, view bookings, and generate reports.
 
 # Installation
 
-Clone the repository: git clone <repository-url>
+Clone the repository: (https://github.com/EOndoa/My-Event-Booking-System-main.git)
 Set up a local server (e.g., XAMPP, WAMP) with PHP and MySQL.
 
 Import the database schema (provided in database.sql).
@@ -48,3 +48,10 @@ Run the project on http://localhost/My-Event-Booking-System-main.
 Register or log in to access booking features.
 Browse events, add to cart, and proceed to checkout.
 Admins can log in to manage events and view reports.
+
+# Future of the project
+Summary: A robust system meeting all project requirements
+Future Work: Update all the features so that they can communicate well, Adapt with other technology can improve UI friendly, Add payment gateway integration, mobile app.
+Thank You: Questions? please fell free to email me: etiennematerne.ondoa@ictuniversity.edu.cm/ etienne_ondoa@cabtal.org
+
+
